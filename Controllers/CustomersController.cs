@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TechSolutionsCRM.DBContexts;
+using TechSolutionsCRM.Interfaces;
 using TechSolutionsCRM.Models;
 
 namespace TechSolutionsCRM.Controllers;
@@ -10,21 +11,25 @@ namespace TechSolutionsCRM.Controllers;
 public class CustomersController : Controller
 {
     private readonly TechSolutionsCRMContext _context;
+    readonly ICustomerService _customerService;
 
-    public CustomersController(TechSolutionsCRMContext context)
+    public CustomersController(TechSolutionsCRMContext context, ICustomerService customerService)
     {
         _context = context;
+        _customerService = customerService;
     }
 
-    // GET: Customers
-    [HttpGet]
+    [HttpGet("Customers")]
+    [ProducesResponseType(typeof(List<Customer>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(void), StatusCodes.Status204NoContent)]
     public async Task<List<Customer>> Index()
     {
-        return await _context.Customer.ToListAsync();
+        return await _customerService.GetAllCustomers();
     }
 
-    // GET: CustomerDetails?id=5
     [HttpGet("CustomerDetails")]
+    [ProducesResponseType(typeof(Customer), StatusCodes.Status200OK)]
+    [ProducesErrorResponseType(typeof(NotFoundObjectResult))]
     public async Task<ActionResult<Customer>> CustomerDetails([FromQuery] int? id)
     {
         if (id == null)
@@ -32,8 +37,8 @@ public class CustomersController : Controller
             return NotFound();
         }
 
-        var customer = await _context.Customer
-            .FirstOrDefaultAsync(m => m.Id == id);
+        var customer = await _customerService.GetCustomerById(id);
+
         if (customer == null)
         {
             return NotFound();

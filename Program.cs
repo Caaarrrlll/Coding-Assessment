@@ -1,5 +1,7 @@
 using TechSolutionsCRM.DBContexts;
 using Microsoft.EntityFrameworkCore;
+using TechSolutionsCRM.Interfaces;
+using TechSolutionsCRM.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +22,8 @@ builder.Services.AddDbContext<TechSolutionsCRMContext>(options =>
        );
     }
 );
+
+builder.Services.AddScoped<ICustomerService, CustomerService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

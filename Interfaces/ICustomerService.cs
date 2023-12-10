@@ -1,6 +1,6 @@
-﻿namespace TechSolutionsCRM.Interfaces
+﻿namespace TechSolutionsCRM.Interfaces;
+
+public interface ICustomerService
 {
-    public interface ICustomerService
-    {
-    }
+
 }

@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using TechSolutionsCRM.DBContexts;
 using TechSolutionsCRM.Interfaces;
 using TechSolutionsCRM.Models;
 
@@ -10,12 +8,10 @@ namespace TechSolutionsCRM.Controllers;
 [Route("[controller]")]
 public class CustomersController : Controller
 {
-    private readonly TechSolutionsCRMContext _context;
     readonly ICustomerService _customerService;
 
-    public CustomersController(TechSolutionsCRMContext context, ICustomerService customerService)
+    public CustomersController(ICustomerService customerService)
     {
-        _context = context;
         _customerService = customerService;
     }
 
@@ -50,7 +46,7 @@ public class CustomersController : Controller
     [HttpPost("CreateCustomer")]
     [ProducesResponseType(typeof(Customer), StatusCodes.Status201Created)]
     [ProducesErrorResponseType(typeof(ConflictObjectResult))]
-    public async Task<CreatedAtRouteResult> Create([Bind("Name,Surname,Email,PhoneNumber")] Customer customer)
+    public async Task<ActionResult<Customer>> Create([Bind("Name,Surname,Email,PhoneNumber")] Customer customer)
     {
         Customer? NewCustomer = null;
         try
@@ -69,50 +65,28 @@ public class CustomersController : Controller
     }
 
   
-    // POST: Customers/EditCustomer
     [HttpPatch("EditCustomer")]
-    public async Task<IActionResult> Edit([Bind("Id,Name,Surname,Email,PhoneNumber")] Customer customer)
+    [ProducesResponseType(typeof(Customer), StatusCodes.Status200OK)]
+    public async Task<ActionResult<Customer>> Edit([Bind("Id,Name,Surname,Email,PhoneNumber")] Customer customer)
     { 
         if (ModelState.IsValid)
         {
-            try
+            var editedCustomer = await _customerService.EditCustomer(customer);
+            if(editedCustomer == null)
             {
-                _context.Update(customer);
-                await _context.SaveChangesAsync();
+                return NotFound();
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CustomerExists(customer.Id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-            return RedirectToAction(nameof(Index));
-        }
-        return View(customer);
-    }
 
-    // POST: Customers/Delete/5
-    [HttpPost, ActionName("Delete")]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> DeleteConfirmed(int id)
-    {
-        var customer = await _context.Customer.FindAsync(id);
-        if (customer != null)
-        {
-            _context.Customer.Remove(customer);
+            return CreatedAtRoute(routeName: "CustomerDetails", routeValues: new { id = customer.Id }, value: editedCustomer);
         }
 
-        await _context.SaveChangesAsync();
-        return RedirectToAction(nameof(Index));
+        return BadRequest();
     }
 
-    private bool CustomerExists(int id)
+    [HttpDelete("DeleteCustomer")]
+    [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+    public async Task<bool> DeleteCustomer(int id)
     {
-        return _context.Customer.Any(e => e.Id == id);
+        return await _customerService.DeleteCustomer(id);
     }
 }

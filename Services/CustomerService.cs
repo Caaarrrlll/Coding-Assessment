@@ -6,7 +6,7 @@ using TechSolutionsCRM.Models;
 
 namespace TechSolutionsCRM.Services;
 
-public class CustomerService : ICustomerService
+public class CustomerService : ICustomerService, IAddressInterface
 {
     protected TechSolutionsCRMContext _context;
     private readonly IMapper _mapper;
@@ -76,8 +76,5 @@ public class CustomerService : ICustomerService
         await _context.SaveChangesAsync();
         return true;
     }
-    #endregion
-
-    #region Public Address Methods
     #endregion
 }

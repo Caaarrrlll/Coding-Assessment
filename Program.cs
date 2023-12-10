@@ -28,6 +28,8 @@ builder.Services.AddDbContext<TechSolutionsCRMContext>(options =>
     }
 );
 
+builder.Services.AddAutoMapper(typeof(Program));
+
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 
 builder.Services.AddEndpointsApiExplorer();

@@ -26,6 +26,11 @@ namespace TechSolutionsCRM.Migrations
                 type: "bit",
                 nullable: true,
                 defaultValue: false);
+
+            migrationBuilder.Sql(@"
+                INSERT INTO TechSolutions.CRM.Customer ([name], surname, email, phonenumber, IdentityNumber) VALUES ('Francois', 'Venter', 'venter109@gmail.com', '0766732450', '9501315106086');
+                INSERT INTO TechSolutions.CRM.Address (AddressName, AddressType, AddressLine1, City, PostalCode, Province, CustomerId) VALUES ('Home', 'Private', '731 Sheba Street', 'Pretoria', '0081', 'Gauteng', 1);
+            ");
         }
 
         /// <inheritdoc />

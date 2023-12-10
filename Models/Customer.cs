@@ -1,4 +1,4 @@
-﻿namespace TechSolutionsCRM.Server.Models;
+﻿namespace TechSolutionsCRM.Models;
 
 public sealed class Customer
 {

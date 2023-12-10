@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Reflection;
-using TechSolutionsCRM.Server.Models;
+using TechSolutionsCRM.Models;
 
 namespace TechSolutionsCRM.DBContexts;
 

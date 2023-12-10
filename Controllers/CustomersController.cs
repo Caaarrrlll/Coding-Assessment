@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TechSolutionsCRM.DBContexts;
-using TechSolutionsCRM.Server.Models;
+using TechSolutionsCRM.Models;
 
 namespace TechSolutionsCRM.Controllers;
 

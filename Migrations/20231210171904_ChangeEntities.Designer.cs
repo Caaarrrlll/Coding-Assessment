@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TechSolutionsCRM.DBContexts;
 
@@ -11,9 +12,11 @@ using TechSolutionsCRM.DBContexts;
 namespace TechSolutionsCRM.Migrations
 {
     [DbContext(typeof(TechSolutionsCRMContext))]
-    partial class TechSolutionsCRMContextModelSnapshot : ModelSnapshot
+    [Migration("20231210171904_ChangeEntities")]
+    partial class ChangeEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

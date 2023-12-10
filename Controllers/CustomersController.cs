@@ -27,7 +27,7 @@ public class CustomersController : Controller
         return await _customerService.GetAllCustomers();
     }
 
-    [HttpGet("CustomerDetails")]
+    [HttpGet("{id}",Name = "CustomerDetails")]
     [ProducesResponseType(typeof(Customer), StatusCodes.Status200OK)]
     [ProducesErrorResponseType(typeof(NotFoundObjectResult))]
     public async Task<ActionResult<Customer>> CustomerDetails([FromQuery] int? id)
@@ -47,26 +47,30 @@ public class CustomersController : Controller
         return customer;
     }
 
-    // POST: Customers/Create
-    // To protect from overposting attacks, enable the specific properties you want to bind to.
-    // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost("CreateCustomer")]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("Name,Surname,Email,PhoneNumber")] Customer customer)
+    [ProducesResponseType(typeof(Customer), StatusCodes.Status201Created)]
+    [ProducesErrorResponseType(typeof(ConflictObjectResult))]
+    public async Task<CreatedAtRouteResult> Create([Bind("Name,Surname,Email,PhoneNumber")] Customer customer)
     {
-        if (ModelState.IsValid)
+        Customer? NewCustomer = null;
+        try
         {
-            _context.Add(customer);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            if (ModelState.IsValid)
+            {
+                NewCustomer = await _customerService.CreateCustomer(customer);
+            }
         }
-        return View(customer);
+        catch (Exception)
+        {
+            throw;
+        }
+
+        return CreatedAtRoute(routeName: "CustomerDetails", routeValues: new { id = NewCustomer.Id }, value: NewCustomer);
     }
 
   
     // POST: Customers/EditCustomer
     [HttpPatch("EditCustomer")]
-    [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit([Bind("Id,Name,Surname,Email,PhoneNumber")] Customer customer)
     { 
         if (ModelState.IsValid)

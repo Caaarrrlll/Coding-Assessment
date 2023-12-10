@@ -36,6 +36,10 @@ public class AddressEntityConfiguration : IEntityTypeConfiguration<Address>
             .HasMaxLength(50)
             .IsRequired();
 
+        builder.Property(a => a.Active)
+            .HasColumnType("bit")
+            .HasDefaultValue(false);
+
         builder.HasOne(a => a.Customer)
             .WithMany(c => c.Addresses)
             .HasForeignKey(a => a.CustomerId)

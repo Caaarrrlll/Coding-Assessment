@@ -28,6 +28,10 @@ public class CustomerEntityConfiguration : IEntityTypeConfiguration<Customer>
             .HasMaxLength(20)
             .IsRequired();
 
+        builder.Property(c => c.IdentityNumber)
+            .HasMaxLength(13)
+            .IsRequired();
+
         builder.HasMany(c => c.Addresses)
             .WithOne(a => a.Customer)
             .HasForeignKey(a => a.CustomerId)

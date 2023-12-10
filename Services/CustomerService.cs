@@ -26,4 +26,19 @@ public class CustomerService : ICustomerService
             .Include(a => a.Addresses)
             .FirstOrDefaultAsync(cancellationToken);
     }
+
+    public async Task<Customer> CreateCustomer(Customer newCustomer)
+    {
+        var checkExisting = await _context.Customer.Where(c => c.IdentityNumber == newCustomer.IdentityNumber).FirstOrDefaultAsync();
+
+        if (checkExisting != null)
+        {
+            throw new Exception("User already Exists");
+        }
+
+        _context.Customer.Add(newCustomer);
+        await _context.SaveChangesAsync();
+
+        return await _context.Customer.Where(c => c.IdentityNumber == newCustomer.IdentityNumber).FirstOrDefaultAsync();
+    }
 }

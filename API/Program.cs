@@ -3,6 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using TechSolutionsCRM.Interfaces;
 using TechSolutionsCRM.Services;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +18,7 @@ builder.Services.AddControllers()
     });
 
 builder.Services.AddHttpContextAccessor();
+
 builder.Services.AddDbContext<TechSolutionsCRMContext>(options =>
     {
         options.UseSqlServer(
@@ -28,12 +32,36 @@ builder.Services.AddDbContext<TechSolutionsCRMContext>(options =>
     }
 );
 
+builder.Services.AddDbContext<IdentityContext>(options => 
+    {
+        options.UseSqlServer(
+            builder.Configuration.GetConnectionString("TechSolutions")
+        );
+    }
+);
+
+builder.Services.AddAuthorization();
+
+
+builder.Services.AddIdentityApiEndpoints<IdentityUser>()
+    .AddEntityFrameworkStores<IdentityContext>();
+
 builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(swaggerOptions =>
+{
+    swaggerOptions.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+    {
+        In = ParameterLocation.Header,
+        Name = "Authorization",
+        Type = SecuritySchemeType.ApiKey,
+    });
+
+    swaggerOptions.OperationFilter<SecurityRequirementsOperationFilter>();
+});
 
 var app = builder.Build();
 
@@ -43,6 +71,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.MapIdentityApi<IdentityUser>();
 
 app.UseHttpsRedirection();
 

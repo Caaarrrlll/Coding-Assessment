@@ -39,6 +39,10 @@ The API is designed with clean architecture and KISS principle in mind and is sp
 
 This choice was made because it allowed me to build the API in a way that is is easy to work with and maintain,
 as well as it allows to be easily extended in the future. The possible extensions that could be made to this Architecture
-would be adding a repository tto allow abstraction on the Context layer to simplify code. From past experience I decided to 
+would be adding a repository tto allow abstraction on the Context layer to simplify code. From past experience I decided to
 not add these right away because it could increase complexity and reduce simplicity if not required.
 
+## Test User Details
+
+email: demouser@test.com
+password: DemoTest1@

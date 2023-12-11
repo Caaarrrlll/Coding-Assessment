@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TechSolutionsCRM.Interfaces;
 using TechSolutionsCRM.Models;
 
 namespace TechSolutionsCRM.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("[controller]")]
 public class CustomersController : Controller
@@ -61,7 +63,7 @@ public class CustomersController : Controller
             throw;
         }
 
-        return CreatedAtRoute(routeName: "CustomerDetails", routeValues: new { id = NewCustomer.Id }, value: NewCustomer);
+        return CreatedAtRoute(routeName: "CustomerDetails", routeValues: new { id = NewCustomer!.Id }, value: NewCustomer);
     }
 
   

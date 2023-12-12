@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TechSolutionsCRM.DBContexts;
 using TechSolutionsCRM.Interfaces;
@@ -6,7 +7,7 @@ using TechSolutionsCRM.Models;
 
 namespace TechSolutionsCRM.Services;
 
-public class CustomerService : ICustomerService, IAddressInterface
+public class CustomerService : ICustomerService
 {
     protected TechSolutionsCRMContext _context;
     private readonly IMapper _mapper;
@@ -78,9 +79,5 @@ public class CustomerService : ICustomerService, IAddressInterface
         await _context.SaveChangesAsync();
         return true;
     }
-    #endregion
-
-    #region Public Address Methods
-    
     #endregion
 }

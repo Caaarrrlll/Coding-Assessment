@@ -11,10 +11,12 @@ namespace TechSolutionsCRM.Controllers;
 public class CustomersController : Controller
 {
     readonly ICustomerService _customerService;
+    readonly IAddressService _addressService;
 
-    public CustomersController(ICustomerService customerService)
+    public CustomersController(ICustomerService customerService, IAddressService addressService)
     {
         _customerService = customerService;
+        _addressService = addressService;
     }
 
     #region Customer Endpoints
@@ -49,7 +51,7 @@ public class CustomersController : Controller
     [HttpPost("CreateCustomer")]
     [ProducesResponseType(typeof(Customer), StatusCodes.Status201Created)]
     [ProducesErrorResponseType(typeof(ConflictObjectResult))]
-    public async Task<ActionResult<Customer>> Create([FromBody] Customer customer)
+    public async Task<ActionResult<Customer>> CreateCustomer([FromBody] Customer customer)
     {
         Customer? NewCustomer = null;
         try
@@ -70,7 +72,7 @@ public class CustomersController : Controller
   
     [HttpPatch("EditCustomer")]
     [ProducesResponseType(typeof(Customer), StatusCodes.Status200OK)]
-    public async Task<ActionResult<Customer>> Edit([FromBody] Customer customer)
+    public async Task<ActionResult<Customer>> EditCustomer([FromBody] Customer customer)
     { 
         if (ModelState.IsValid)
         {
@@ -91,6 +93,56 @@ public class CustomersController : Controller
     public async Task<bool> DeleteCustomer(int id)
     {
         return await _customerService.DeleteCustomer(id);
+    }
+
+    #endregion
+
+    #region Address Endpoints
+
+    [HttpPost("CreateAddress")]
+    [ProducesResponseType(typeof(Address), StatusCodes.Status201Created)]
+    [ProducesErrorResponseType(typeof(ConflictObjectResult))]
+    public async Task<ActionResult<Address>> CreateAddress([FromBody] Address address)
+    {
+        Address? newAddress = null;
+        try
+        {
+            if (ModelState.IsValid)
+            {
+                newAddress = await _addressService.CreateAddress(address);
+            }
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+
+        return Ok(newAddress);
+    }
+
+    [HttpPatch("EditAddress")]
+    [ProducesResponseType(typeof(Address), StatusCodes.Status200OK)]
+    public async Task<ActionResult<Address>> EditAddress([FromBody] Address address)
+    {
+        if (ModelState.IsValid)
+        {
+            var editedAddress = await _addressService.EditAddress(address);
+            if (editedAddress == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(editedAddress);
+        }
+
+        return BadRequest();
+    }
+
+    [HttpDelete("DeleteAddress")]
+    [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+    public async Task<bool> DeleteAddress(int id)
+    {
+        return await _addressService.DeleteAddress(id);
     }
 
     #endregion

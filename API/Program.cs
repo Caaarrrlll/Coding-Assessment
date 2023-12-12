@@ -45,6 +45,7 @@ builder.Services.AddIdentityApiEndpoints<IdentityUser>()
 builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<IAddressService, AddressService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(swaggerOptions =>

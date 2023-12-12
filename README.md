@@ -145,3 +145,5 @@ would be adding a repository tto allow abstraction on the Context layer to simpl
 not add these right away because it could increase complexity and reduce simplicity if not required.
 
 # Frontend
+
+The Frontend consists of a clean angular project with a single module and a few simple components, a login and registration page for the employee (this registers the user on Identity), then a customer list and detail page. The Detail page allows for editing of the customer and adding of addresses. The frontend is designed to be simple and easy to use and does not do any of the heavy lifting, all the work is done in the backend.

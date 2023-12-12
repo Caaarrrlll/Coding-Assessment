@@ -49,19 +49,21 @@ export class CustomersListComponent {
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
 
-      if (customer) {
-        this._customerService.editCustomer(result).subscribe(() => {
-          this._customerService.getCustomers().subscribe((customers) => {
-            this.customerDataSource.data = customers;
-          });
-        });
-      } else {
-        this._customerService.createCustomer(result).subscribe(() => {
-          this._customerService.getCustomers().subscribe((customers) => {
-            this.customerDataSource.data = customers;
-          });
-        });
-      }
+      console.log(result);
+
+      // if (customer) {
+      //   this._customerService.editCustomer(result).subscribe(() => {
+      //     this._customerService.getCustomers().subscribe((customers) => {
+      //       this.customerDataSource.data = customers;
+      //     });
+      //   });
+      // } else {
+      //   this._customerService.createCustomer(result).subscribe(() => {
+      //     this._customerService.getCustomers().subscribe((customers) => {
+      //       this.customerDataSource.data = customers;
+      //     });
+      //   });
+      // }
     });
   }
 }

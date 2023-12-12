@@ -30,7 +30,7 @@ export class CustomerService {
   }
 
   editCustomer(customer: Customer): Observable<Customer> {
-    return this._http.put<Customer>(
+    return this._http.patch<Customer>(
       `${this.customerUrl}/EditCustomer`,
       customer
     );

@@ -11,10 +11,10 @@
 # Instructions on how to run
 
 <ul>
+<h2> Database </h2>
     <li>
         <span>Navigate to the first link above (SQL Server 2022 Developer) and download the Developer installer</span><br>
-
-![SQL Dev Picture](ReadmeAssets/sql-1-dev-installer.jpg)
+<img src="./ReadmeAssets/sql-1-dev-installer.jpg" width="500px" alt="SQL Installer"/>
 
  </li>
 <li> Perform a basic installation to ensure SQL Server is installed
@@ -43,6 +43,29 @@
 
 </li>
 
+<h2> IDE </h2>
+<li>
+    Download the Visual Studio Community Installer from the second link above and run it
+<img src="./ReadmeAssets/vs-1-community.jpg" alt="VS Community" width="400px" />
+</li>
+<li>
+    Under Workloads select ASP.NET and web development and click install
+    <img src="./ReadmeAssets/vs-2-packages.jpg" alt="Workload"/>
+</li>
+<li>
+    After installation double click the TechSolutionsCRM solution file to open the project.
+    Navigate to (in the top menu bar) Tools > Command Line > Developer Powershell
+    and install the Entity Framework Core tools by running the following command:
+
+<code>dotnet tool install --global dotnet-ef</code><br>
+This will give a message if already installed or if this fails please ensure that the <a href="https://dotnet.microsoft.com/en-us/download">.NET 8 SDK<a/> is installed on the machine and try again.
+
+</li>
+<li>
+Once Entity Framework tools are installed, in the same console run the following command to create all tables and to seed some data <br>
+<code>dotnet ef database update --context IdentityContext; dotnet ef database update --context TechSolutionsCRMContext</code><br>
+These 2 concatenated commands fire the entity core updates per context. 
+</li>
 </ul>
 
 ## Frameworks

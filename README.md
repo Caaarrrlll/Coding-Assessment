@@ -5,11 +5,17 @@
 ## Software Used
 
 -   [SQL Server 2022 Developer](https://www.microsoft.com/en-za/sql-server/sql-server-downloads)
--   [Visual Studio 2019 Community](https://visualstudio.microsoft.com/downloads/)
+-   [Visual Studio 2022 Community](https://visualstudio.microsoft.com/downloads/)
 -   [Node 18.10+](https://nodejs.org/en/download/)
 
 # Instructions on how to run
 
+<ol>
+    <li>
+        <span>Navigate to the first link above (SQL Server 2022 Developer) and download the Developer installer</span><br>
+        ![SQL Dev Picture](ReadmeAssets/sql-dev-installer.jpg)
+    </li>
+</ol>
 -   Please ensure SQL Server is running on the host machine
 
 ## Frameworks

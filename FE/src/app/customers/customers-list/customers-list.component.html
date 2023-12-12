@@ -56,8 +56,19 @@
           </button>
         </ng-container>
         <ng-container *ngIf="element.addresses[0]?.id">
-          <button mat-icon-button (click)="editAddress(element.addresses[0])">
+          <button
+            mat-icon-button
+            (click)="editAddress(element.addresses[0], element.id)"
+          >
             <mat-icon>edit</mat-icon>
+          </button>
+        </ng-container>
+        <ng-container *ngIf="element.addresses[0]?.id">
+          <button
+            mat-icon-button
+            (click)="deleteAddress(element.addresses[0].id)"
+          >
+            <mat-icon>delete</mat-icon>
           </button>
         </ng-container>
       </td>

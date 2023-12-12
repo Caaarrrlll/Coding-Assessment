@@ -1,1 +1,86 @@
-<p>customers-address works!</p>
+<h2 mat-dialog-title>Customer Details</h2>
+<mat-dialog-content>
+  <div class="customer-detail">
+    <form [formGroup]="addressForm">
+      <mat-form-field>
+        <mat-label>Address Name</mat-label>
+        <input
+          matInput
+          placeholder="Address Name"
+          formControlName="addressName"
+        />
+        <mat-error
+          *ngIf="addressForm.controls['addressName'].hasError('required')"
+        >
+          Required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Address Line 1</mat-label>
+        <input
+          matInput
+          placeholder="Address Line 1"
+          formControlName="addressLine1"
+        />
+        <mat-error
+          *ngIf="addressForm.controls['addressLine1'].hasError('required')"
+        >
+          Required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Address Line 2</mat-label>
+        <input
+          matInput
+          placeholder="Address Line 2"
+          formControlName="addressLine2"
+        />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>City</mat-label>
+        <input matInput placeholder="City" formControlName="city" />
+        <mat-error *ngIf="addressForm.controls['city'].hasError('required')">
+          Required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Postal Code</mat-label>
+        <input
+          matInput
+          placeholder="Postal Code"
+          formControlName="postalCode"
+          maxlength="5"
+        />
+        <mat-error
+          *ngIf="addressForm.controls['postalCode'].hasError('required')"
+        >
+          Required
+        </mat-error>
+        <mat-error
+          *ngIf="addressForm.controls['postalCode'].hasError('pattern')"
+          >Has to be 4 or 5 numbers</mat-error
+        >
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Province</mat-label>
+        <input matInput placeholder="Province" formControlName="province" />
+        <mat-error
+          *ngIf="addressForm.controls['province'].hasError('required')"
+        >
+          Required
+        </mat-error>
+      </mat-form-field>
+    </form>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button (click)="dialogSuccessClose()" cdkFocusInitial>
+    Accept
+  </button>
+</mat-dialog-actions>

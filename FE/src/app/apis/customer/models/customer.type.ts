@@ -17,7 +17,7 @@ export type Address = {
   city: string;
   postalCode: string;
   province: string;
-  // active: boolean;
-  // customerId: number;
+  active: boolean;
+  customerId: number;
   // customer: string;
 };

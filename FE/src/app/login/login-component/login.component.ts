@@ -56,8 +56,6 @@ export class LoginComponent implements OnInit {
     const email = this.email;
     const password = this.password;
 
-    console.log('test');
-
     let token: any = '';
     let readSession = sessionStorage.getItem('token');
     if (readSession != null) {
@@ -103,7 +101,7 @@ export class LoginComponent implements OnInit {
 
           this._snackBar.open('User logged in', 'Close', { duration: 3000 });
 
-          this._router.navigate(['/user-list']);
+          this._router.navigate(['/customers']);
         },
         error: () => {
           this._snackBar.open('User could not be logged in', 'Close', {

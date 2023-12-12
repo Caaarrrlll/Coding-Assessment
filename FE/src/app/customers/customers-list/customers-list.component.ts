@@ -34,7 +34,7 @@ export class CustomersListComponent {
     });
   }
 
-  deleteCustomer(customerId: number) {
+  deleteCustomer(customerId: number): void {
     this._customerService.deleteCustomer(customerId).subscribe(() => {
       this._customerService.getCustomers().subscribe((customers) => {
         this.customerDataSource.data = customers;
@@ -42,7 +42,7 @@ export class CustomersListComponent {
     });
   }
 
-  editCustomer(customer?: Customer) {
+  editCustomer(customer?: Customer): void {
     const dialogRef = this.dialog.open(CustomersDetailComponent, {
       width: '400px',
       data: customer,
@@ -71,29 +71,40 @@ export class CustomersListComponent {
     address?: Address | null,
     customerId?: number,
     viewOnly?: boolean
-  ) {
+  ): void {
     const dialogRef = this.dialog.open(CustomersAddressComponent, {
       width: '400px',
-      data: address,
+      data: {
+        address: address,
+        customerId: customerId,
+        viewOnly: viewOnly,
+      },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        console.log(result);
-        // if (address) {
-        //   this._customerService.editAddress(result).subscribe(() => {
-        //     this._customerService.getCustomers().subscribe((customers) => {
-        //       this.customerDataSource.data = customers;
-        //     });
-        //   });
-        // } else {
-        //   this._customerService.createAddress(result).subscribe(() => {
-        //     this._customerService.getCustomers().subscribe((customers) => {
-        //       this.customerDataSource.data = customers;
-        //     });
-        //   });
-        // }
+        if (address) {
+          this._customerService.editAddress(result).subscribe(() => {
+            this._customerService.getCustomers().subscribe((customers) => {
+              this.customerDataSource.data = customers;
+            });
+          });
+        } else {
+          this._customerService.createAddress(result).subscribe(() => {
+            this._customerService.getCustomers().subscribe((customers) => {
+              this.customerDataSource.data = customers;
+            });
+          });
+        }
       }
+    });
+  }
+
+  deleteAddress(addressId: number): void {
+    this._customerService.deleteAddress(addressId).subscribe(() => {
+      this._customerService.getCustomers().subscribe((customers) => {
+        this.customerDataSource.data = customers;
+      });
     });
   }
 }

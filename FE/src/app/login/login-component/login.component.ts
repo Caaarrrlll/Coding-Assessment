@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { IdentityService } from 'src/app/apis/identity/identity.service';
@@ -11,19 +11,13 @@ import { IdentityService } from 'src/app/apis/identity/identity.service';
 })
 export class LoginComponent implements OnInit {
   employeeForm: FormGroup = new FormGroup({
-    email: new FormGroup(
+    email: new FormControl(
       '',
       Validators.compose([Validators.required, Validators.email])
     ),
-    password: new FormGroup(
+    password: new FormControl(
       '',
-      Validators.compose([
-        Validators.required,
-        Validators.minLength(6),
-        Validators.pattern(
-          /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[]:;<>,.?\/~_+-=|\])$/
-        ),
-      ])
+      Validators.compose([Validators.required, Validators.minLength(6)])
     ),
   });
 
@@ -49,13 +43,21 @@ export class LoginComponent implements OnInit {
     private _router: Router
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    Object.keys(this.employeeForm.controls).map((control) =>
+      this.employeeForm.controls[control].markAsTouched()
+    );
+  }
 
   login(): void {
     const email = this.email;
     const password = this.password;
 
-    const token = JSON.parse(sessionStorage.getItem('token') ?? '');
+    let token: any = '';
+    let readSession = sessionStorage.getItem('token');
+    if (readSession != null) {
+      token = JSON.parse(readSession);
+    }
     const now = new Date().getTime();
 
     if (token == '') {
@@ -107,12 +109,13 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  register(email: string, password: string): void {
+  register(): void {
+    const email = this.email;
+    const password = this.password;
+
     this._identityService.registerUser(email, password).subscribe({
       next: () => {
         this._snackBar.open('User registered', 'Close', { duration: 3000 });
-        this.email = email;
-        this.password = password;
         this.login();
       },
       error: (failed) => {

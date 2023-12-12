@@ -95,6 +95,4 @@ public class CustomersController : Controller
 
     #endregion
 
-    #region Customer Addresses Endpoints
-    #endregion
 }

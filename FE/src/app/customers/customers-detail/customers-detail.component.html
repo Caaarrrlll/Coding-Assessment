@@ -13,21 +13,60 @@
       <mat-form-field>
         <mat-label>Surname</mat-label>
         <input matInput placeholder="Surname" formControlName="surname" />
+        <mat-error
+          *ngIf="customerForm.controls['surname'].hasError('required')"
+        >
+          Required
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field>
         <mat-label>Phone Number</mat-label>
-        <input matInput placeholder="Phone No" formControlName="phoneNumber" />
+        <input
+          matInput
+          placeholder="Phone No"
+          formControlName="phoneNumber"
+          maxlength="10"
+        />
+        <mat-error
+          *ngIf="customerForm.controls['phoneNumber'].hasError('required')"
+        >
+          Required
+        </mat-error>
+        <mat-error
+          *ngIf="customerForm.controls['phoneNumber'].hasError('pattern')"
+          >Can only consist of 10 numbers</mat-error
+        >
       </mat-form-field>
 
       <mat-form-field>
         <mat-label>Email</mat-label>
         <input matInput placeholder="Email" formControlName="email" />
+        <mat-error *ngIf="customerForm.controls['email'].hasError('required')">
+          Required
+        </mat-error>
+        <mat-error *ngIf="customerForm.controls['email'].hasError('pattern')"
+          >Must be a valid email</mat-error
+        >
       </mat-form-field>
 
       <mat-form-field>
         <mat-label>ID</mat-label>
-        <input matInput placeholder="Id No" formControlName="identityNumber" />
+        <input
+          matInput
+          placeholder="Id No"
+          formControlName="identityNumber"
+          maxlength="13"
+        />
+        <mat-error
+          *ngIf="customerForm.controls['identityNumber'].hasError('required')"
+        >
+          Required
+        </mat-error>
+        <mat-error
+          *ngIf="customerForm.controls['identityNumber'].hasError('pattern')"
+          >Can only consist of 13 numbers</mat-error
+        >
       </mat-form-field>
     </form>
   </div>

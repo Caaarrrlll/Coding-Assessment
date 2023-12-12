@@ -22,7 +22,10 @@ export class CustomersDetailComponent implements AfterContentInit {
     ),
     email: new FormControl(
       '',
-      Validators.compose([Validators.required, Validators.email])
+      Validators.compose([
+        Validators.required,
+        Validators.pattern(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/),
+      ])
     ),
     identityNumber: new FormControl(
       '',
@@ -31,7 +34,6 @@ export class CustomersDetailComponent implements AfterContentInit {
         Validators.pattern(/^[0-9]{13}/),
       ])
     ),
-    // addressId: new FormControl({}),
   });
 
   constructor(
@@ -48,9 +50,12 @@ export class CustomersDetailComponent implements AfterContentInit {
         phoneNumber: this.data.phoneNumber,
         email: this.data.email,
         identityNumber: this.data.identityNumber,
-        // addressId: this.data.addresses[0].id,
       });
     }
+
+    Object.keys(this.customerForm.controls).map((control) => {
+      this.customerForm.controls[control].markAsTouched();
+    });
   }
 
   onNoClick(): void {

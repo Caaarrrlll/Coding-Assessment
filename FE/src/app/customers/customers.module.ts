@@ -10,9 +10,10 @@ import { MatTableModule } from '@angular/material/table';
 import { CustomersListComponent } from 'src/app/customers/customers-list/customers-list.component';
 import { CustomersDetailComponent } from './customers-detail/customers-detail.component';
 import { CustomersRoutingModule } from './customers-routing.module';
+import { CustomersAddressComponent } from './customers-address/customers-address.component';
 
 @NgModule({
-  declarations: [CustomersListComponent, CustomersDetailComponent],
+  declarations: [CustomersListComponent, CustomersDetailComponent, CustomersAddressComponent],
   imports: [
     CommonModule,
     CustomersRoutingModule,

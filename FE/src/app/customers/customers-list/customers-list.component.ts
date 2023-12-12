@@ -42,15 +42,11 @@ export class CustomersListComponent {
 
   editCustomer(customer?: Customer) {
     const dialogRef = this.dialog.open(CustomersDetailComponent, {
-      width: '250px',
+      width: '400px',
       data: customer,
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
-
-      console.log(result);
-
       if (customer) {
         this._customerService.editCustomer(result).subscribe(() => {
           this._customerService.getCustomers().subscribe((customers) => {

@@ -19,6 +19,10 @@
             >
               Required
             </mat-error>
+            <mat-error
+              *ngIf="employeeForm.controls['email'].hasError('pattern')"
+              >Must be a valid email</mat-error
+            >
           </mat-form-field>
           <mat-form-field>
             <mat-label>Password</mat-label>

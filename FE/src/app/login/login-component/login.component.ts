@@ -13,7 +13,10 @@ export class LoginComponent implements OnInit {
   employeeForm: FormGroup = new FormGroup({
     email: new FormControl(
       '',
-      Validators.compose([Validators.required, Validators.email])
+      Validators.compose([
+        Validators.required,
+        Validators.pattern(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/),
+      ])
     ),
     password: new FormControl(
       '',

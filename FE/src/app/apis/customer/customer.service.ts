@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Customer } from 'src/app/apis/customer/models/customer.type';
+import { Address, Customer } from 'src/app/apis/customer/models/customer.type';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({
@@ -12,6 +12,7 @@ export class CustomerService {
 
   constructor(private _http: HttpClient) {}
 
+  // *** Customer Details *** //
   getCustomers(): Observable<Customer[]> {
     return this._http.get<Customer[]>(`${this.customerUrl}/Customers`);
   }
@@ -40,6 +41,28 @@ export class CustomerService {
   deleteCustomer(id: number): Observable<boolean> {
     return this._http.delete<boolean>(
       `${this.customerUrl}/DeleteCustomer?id=${id}`
+    );
+  }
+
+  // *** Customer Address *** //
+  createAddress(address: Address): Observable<Address> {
+    delete address.id;
+    return this._http.post<Address>(
+      `${this.customerUrl}/CreateAddress`,
+      address
+    );
+  }
+
+  editAddress(address: Address): Observable<Address> {
+    return this._http.patch<Address>(
+      `${this.customerUrl}/EditAddress`,
+      address
+    );
+  }
+
+  deleteAddress(id: number): Observable<boolean> {
+    return this._http.delete<boolean>(
+      `${this.customerUrl}/DeleteAddress?id=${id}`
     );
   }
 }

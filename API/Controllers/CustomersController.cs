@@ -17,6 +17,7 @@ public class CustomersController : Controller
         _customerService = customerService;
     }
 
+    #region Customer Endpoints
     [HttpGet("Customers")]
     [ProducesResponseType(typeof(List<Customer>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(void), StatusCodes.Status204NoContent)]
@@ -91,4 +92,9 @@ public class CustomersController : Controller
     {
         return await _customerService.DeleteCustomer(id);
     }
+
+    #endregion
+
+    #region Customer Addresses Endpoints
+    #endregion
 }

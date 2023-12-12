@@ -77,4 +77,8 @@ public class CustomerService : ICustomerService, IAddressInterface
         return true;
     }
     #endregion
+
+    #region Public Address Methods
+    
+    #endregion
 }

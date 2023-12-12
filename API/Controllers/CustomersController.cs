@@ -43,13 +43,13 @@ public class CustomersController : Controller
             return NotFound();
         }
 
-        return customer;
+        return Ok(customer);
     }
 
     [HttpPost("CreateCustomer")]
     [ProducesResponseType(typeof(Customer), StatusCodes.Status201Created)]
     [ProducesErrorResponseType(typeof(ConflictObjectResult))]
-    public async Task<ActionResult<Customer>> Create([Bind("Name,Surname,Email,PhoneNumber")] Customer customer)
+    public async Task<ActionResult<Customer>> Create([FromBody] Customer customer)
     {
         Customer? NewCustomer = null;
         try
@@ -64,13 +64,13 @@ public class CustomersController : Controller
             throw;
         }
 
-        return CreatedAtRoute(routeName: "CustomerDetails", routeValues: new { id = NewCustomer!.Id }, value: NewCustomer);
+        return Ok(NewCustomer);
     }
 
   
     [HttpPatch("EditCustomer")]
     [ProducesResponseType(typeof(Customer), StatusCodes.Status200OK)]
-    public async Task<ActionResult<Customer>> Edit([Bind("Id,Name,Surname,Email,PhoneNumber")] Customer customer)
+    public async Task<ActionResult<Customer>> Edit([FromBody] Customer customer)
     { 
         if (ModelState.IsValid)
         {
@@ -80,7 +80,7 @@ public class CustomersController : Controller
                 return NotFound();
             }
 
-            return CreatedAtRoute(routeName: "CustomerDetails", routeValues: new { id = customer.Id }, value: editedCustomer);
+            return Ok(editedCustomer);
         }
 
         return BadRequest();
@@ -94,5 +94,4 @@ public class CustomersController : Controller
     }
 
     #endregion
-
 }

@@ -1,5 +1,5 @@
 export type Customer = {
-  id: number;
+  id?: number;
   name: string;
   surname: string;
   email: string;
@@ -9,7 +9,7 @@ export type Customer = {
 };
 
 export type Address = {
-  id: number;
+  id?: number;
   addressName: string;
   addressType: string;
   addressLine1: string;

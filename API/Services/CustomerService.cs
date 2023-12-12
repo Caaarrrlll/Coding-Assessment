@@ -40,6 +40,8 @@ public class CustomerService : ICustomerService, IAddressInterface
             return null;
         }
 
+        Customer newMapped = _mapper.Map<Customer>(newCustomer);
+
         _context.Customer.Add(newCustomer);
         await _context.SaveChangesAsync();
 

@@ -51,19 +51,19 @@ export class CustomersListComponent {
 
       console.log(result);
 
-      // if (customer) {
-      //   this._customerService.editCustomer(result).subscribe(() => {
-      //     this._customerService.getCustomers().subscribe((customers) => {
-      //       this.customerDataSource.data = customers;
-      //     });
-      //   });
-      // } else {
-      //   this._customerService.createCustomer(result).subscribe(() => {
-      //     this._customerService.getCustomers().subscribe((customers) => {
-      //       this.customerDataSource.data = customers;
-      //     });
-      //   });
-      // }
+      if (customer) {
+        this._customerService.editCustomer(result).subscribe(() => {
+          this._customerService.getCustomers().subscribe((customers) => {
+            this.customerDataSource.data = customers;
+          });
+        });
+      } else {
+        this._customerService.createCustomer(result).subscribe(() => {
+          this._customerService.getCustomers().subscribe((customers) => {
+            this.customerDataSource.data = customers;
+          });
+        });
+      }
     });
   }
 }

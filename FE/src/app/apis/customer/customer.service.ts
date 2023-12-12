@@ -23,6 +23,7 @@ export class CustomerService {
   }
 
   createCustomer(customer: Customer): Observable<Customer> {
+    delete customer.id;
     return this._http.post<Customer>(
       `${this.customerUrl}/CreateCustomer`,
       customer

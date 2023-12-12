@@ -37,15 +37,13 @@ export class CustomersDetailComponent implements AfterContentInit {
   constructor(
     public dialogRef: MatDialogRef<CustomersDetailComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Customer
-  ) {
-    console.log(data);
-  }
+  ) {}
 
   ngAfterContentInit(): void {
     if (this.data) {
       this.customerForm.setValue({
-        id: this.data.id ?? null,
-        name: this.data.name ?? null,
+        id: this.data.id,
+        name: this.data.name,
         surname: this.data.surname,
         phoneNumber: this.data.phoneNumber,
         email: this.data.email,
@@ -53,5 +51,13 @@ export class CustomersDetailComponent implements AfterContentInit {
         // addressId: this.data.addresses[0].id,
       });
     }
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  dialogSuccessClose() {
+    this.dialogRef.close(this.customerForm.value);
   }
 }

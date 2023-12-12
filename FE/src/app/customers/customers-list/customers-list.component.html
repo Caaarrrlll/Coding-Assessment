@@ -1,6 +1,8 @@
 <div class="container">
   <div class="button-row">
-    <button mat-raised-button color="primary" (click)="editCustomer()">Add Customer</button>
+    <button mat-raised-button color="primary" (click)="editCustomer()">
+      Add Customer
+    </button>
   </div>
   <table mat-table [dataSource]="customerDataSource">
     <ng-container matColumnDef="name">
@@ -34,6 +36,30 @@
       <th mat-header-cell *matHeaderCellDef>Has Address</th>
       <td mat-cell *matCellDef="let element">
         {{ element.addresses[0]?.id ? "Yes" : "No" }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="addressActions">
+      <th mat-header-cell *matHeaderCellDef>Address Actions</th>
+      <td mat-cell *matCellDef="let element">
+        <ng-container *ngIf="element.addresses[0]?.id">
+          <button
+            mat-icon-button
+            (click)="editAddress(element.addresses[0], element.id, true)"
+          >
+            <mat-icon>info</mat-icon>
+          </button>
+        </ng-container>
+        <ng-container *ngIf="!element.addresses[0]?.id">
+          <button mat-icon-button (click)="editAddress(null, element.id)">
+            <mat-icon>add</mat-icon>
+          </button>
+        </ng-container>
+        <ng-container *ngIf="element.addresses[0]?.id">
+          <button mat-icon-button (click)="editAddress(element.addresses[0])">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </ng-container>
       </td>
     </ng-container>
 

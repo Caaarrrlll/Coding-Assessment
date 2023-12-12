@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { CustomerService } from 'src/app/apis/customer/customer.service';
-import { Customer } from 'src/app/apis/customer/models/customer.type';
+import { Address, Customer } from 'src/app/apis/customer/models/customer.type';
+import { CustomersAddressComponent } from 'src/app/customers/customers-address/customers-address.component';
 import { CustomersDetailComponent } from 'src/app/customers/customers-detail/customers-detail.component';
 
 @Component({
@@ -20,6 +21,7 @@ export class CustomersListComponent {
     'email',
     'identityNumber',
     'addressId',
+    'addressActions',
     'actions',
   ];
 
@@ -47,18 +49,50 @@ export class CustomersListComponent {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      if (customer) {
-        this._customerService.editCustomer(result).subscribe(() => {
-          this._customerService.getCustomers().subscribe((customers) => {
-            this.customerDataSource.data = customers;
+      if (result) {
+        if (customer) {
+          this._customerService.editCustomer(result).subscribe(() => {
+            this._customerService.getCustomers().subscribe((customers) => {
+              this.customerDataSource.data = customers;
+            });
           });
-        });
-      } else {
-        this._customerService.createCustomer(result).subscribe(() => {
-          this._customerService.getCustomers().subscribe((customers) => {
-            this.customerDataSource.data = customers;
+        } else {
+          this._customerService.createCustomer(result).subscribe(() => {
+            this._customerService.getCustomers().subscribe((customers) => {
+              this.customerDataSource.data = customers;
+            });
           });
-        });
+        }
+      }
+    });
+  }
+
+  editAddress(
+    address?: Address | null,
+    customerId?: number,
+    viewOnly?: boolean
+  ) {
+    const dialogRef = this.dialog.open(CustomersAddressComponent, {
+      width: '400px',
+      data: address,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        console.log(result);
+        // if (address) {
+        //   this._customerService.editAddress(result).subscribe(() => {
+        //     this._customerService.getCustomers().subscribe((customers) => {
+        //       this.customerDataSource.data = customers;
+        //     });
+        //   });
+        // } else {
+        //   this._customerService.createAddress(result).subscribe(() => {
+        //     this._customerService.getCustomers().subscribe((customers) => {
+        //       this.customerDataSource.data = customers;
+        //     });
+        //   });
+        // }
       }
     });
   }

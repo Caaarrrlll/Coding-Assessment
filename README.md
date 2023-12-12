@@ -10,13 +10,40 @@
 
 # Instructions on how to run
 
-<ol>
+<ul>
     <li>
         <span>Navigate to the first link above (SQL Server 2022 Developer) and download the Developer installer</span><br>
-        ![SQL Dev Picture](ReadmeAssets/sql-dev-installer.jpg)
-    </li>
-</ol>
--   Please ensure SQL Server is running on the host machine
+
+![SQL Dev Picture](ReadmeAssets/sql-1-dev-installer.jpg)
+
+ </li>
+<li> Perform a basic installation to ensure SQL Server is installed
+
+![SQL Dev Picture](ReadmeAssets/sql-2-basic-installation.jpg)
+
+</li>
+<li> At the end of the installation please ensure that the connection string has localhost as the server and copy the connection string to clipboard
+
+![SQL Dev Picture](ReadmeAssets/sql-3-connectionstring.jpg)
+
+<li>After SQL Server has been installed, any SQL Management Studio is required, the installer has a prompt to install Sql Server Management Studio (install with all the defaults)
+
+![SQL Dev Picture](ReadmeAssets/sql-4-ssms.jpg)
+
+<li> If SSMS was installed simply open it and change the server name to localhost and connect
+
+![SQL Dev Picture](ReadmeAssets/sql-5-ssms-connection.jpg)
+
+</li>
+
+<li>
+    After connecting to the local database simply drag the script into the editor box hit execute and refresh the connection to see the database (TechSolutions) should be under the list now.
+
+![SQL Dev Picture](ReadmeAssets/sql-7-create-database.jpg)
+
+</li>
+
+</ul>
 
 ## Frameworks
 

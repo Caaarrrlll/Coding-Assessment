@@ -18,4 +18,10 @@ export class IdentityService {
   loginUser(email: string, password: string) {
     return this._http.post(`${environment.apiUrl}/login`, { email, password });
   }
+
+  refreshToken(refreshToken: string) {
+    return this._http.post(`${environment.apiUrl}/refresh`, {
+      refreshToken: refreshToken,
+    });
+  }
 }

@@ -9,8 +9,6 @@ using Swashbuckle.AspNetCore.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
@@ -31,7 +29,6 @@ builder.Services.AddDbContext<TechSolutionsCRMContext>(options =>
        );
     }
 );
-
 builder.Services.AddDbContext<IdentityContext>(options => 
     {
         options.UseSqlServer(
@@ -41,7 +38,6 @@ builder.Services.AddDbContext<IdentityContext>(options =>
 );
 
 builder.Services.AddAuthorization();
-
 
 builder.Services.AddIdentityApiEndpoints<IdentityUser>()
     .AddEntityFrameworkStores<IdentityContext>();

@@ -2,7 +2,6 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -16,25 +15,27 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RequestInterceptor } from 'src/app/controls/http.interceptor';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './components/login/login.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 
+const matModules = [
+  MatSnackBarModule,
+  MatButtonModule,
+  MatToolbarModule,
+  MatIconModule,
+  MatSidenavModule,
+  MatListModule,
+  MatMenuModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatSnackBarModule,
+];
 @NgModule({
-  declarations: [AppComponent, LoginComponent, NavigationComponent],
+  declarations: [AppComponent, NavigationComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    MatButtonModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatSidenavModule,
-    MatListModule,
-    MatMenuModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSnackBarModule,
+    ...matModules,
     LayoutModule,
     HttpClientModule,
   ],
@@ -42,5 +43,6 @@ import { NavigationComponent } from './components/navigation/navigation.componen
     { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
   ],
   bootstrap: [AppComponent, NavigationComponent],
+  exports: [],
 })
 export class AppModule {}

@@ -26,7 +26,7 @@ public class CustomersController : Controller
         return await _customerService.GetAllCustomers();
     }
 
-    [HttpGet("{id}",Name = "CustomerDetails")]
+    [HttpGet("CustomerDetails")]
     [ProducesResponseType(typeof(Customer), StatusCodes.Status200OK)]
     [ProducesErrorResponseType(typeof(NotFoundObjectResult))]
     public async Task<ActionResult<Customer>> CustomerDetails([FromQuery] int? id)

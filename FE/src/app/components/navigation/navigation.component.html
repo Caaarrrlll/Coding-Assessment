@@ -13,6 +13,7 @@
       <a mat-list-item routerLink="/user-list" (click)="drawer.close()"
         >Users</a
       >
+      <a mat-button (click)="logout(); drawer.close()">Logout</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -31,8 +32,12 @@
       <div *ngIf="!(isHandset$ | async)">
         <a mat-button routerLink="/login">Login</a>
         <a mat-button routerLink="/user-list">Users</a>
+        <a mat-button (click)="logout()">Logout</a>
       </div>
     </mat-toolbar>
-    <ng-content></ng-content>
+
+    <ng-template #content>
+      <ng-content></ng-content>
+    </ng-template>
   </mat-sidenav-content>
 </mat-sidenav-container>

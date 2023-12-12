@@ -14,5 +14,5 @@ public sealed class Address
     public string? Province { get; set; }
     public bool? Active { get; set; }
     public int? CustomerId { get; set; }
-    public Customer Customer { get; set; }
+    public Customer? Customer { get; set; }
 }

@@ -63,6 +63,19 @@ builder.Services.AddSwaggerGen(swaggerOptions =>
     swaggerOptions.OperationFilter<SecurityRequirementsOperationFilter>();
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "crmFrontEnd",
+          policy =>
+          {
+              policy.WithOrigins(builder.Configuration.GetSection("AllowedOrigins").Get<string[]>()!)
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowAnyOrigin();
+          }
+    );
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -79,5 +92,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseCors("crmFrontEnd");
 
 app.Run();

@@ -15,7 +15,11 @@ export class RequestInterceptor implements HttpInterceptor {
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    request = this.addHeaders(request);
+    let token = sessionStorage.getItem('token');
+    if (typeof token === 'string') {
+      request = this.addHeaders(request);
+    }
+
     return next.handle(request);
   }
 
@@ -23,9 +27,9 @@ export class RequestInterceptor implements HttpInterceptor {
     return request.clone({
       setHeaders: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers':
-          'Origin, X-Requested-With, Content-Type, Accept, Authorization',
+        Authorization:
+          'Bearer ' +
+          JSON.parse(sessionStorage.getItem('token')!)['accessToken'],
       },
     });
   }

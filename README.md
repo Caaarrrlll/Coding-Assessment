@@ -6,15 +6,15 @@
 
 -   [SQL Server 2022 Developer](https://www.microsoft.com/en-za/sql-server/sql-server-downloads)
 -   [Visual Studio 2022 Community](https://visualstudio.microsoft.com/downloads/)
--   [Node 18.10+](https://nodejs.org/en/download/)
+-   [Node 20+](https://nodejs.org/en/download/)
 
-# Instructions on how to run
+# Instructions on how to Setup the Project
 
 <ul>
 <h2> Database </h2>
     <li>
         <span>Navigate to the first link above (SQL Server 2022 Developer) and download the Developer installer</span><br>
-<img src="./ReadmeAssets/sql-1-dev-installer.jpg" width="500px" alt="SQL Installer"/>
+<img src="./ReadmeAssets/sql-1-dev-installer.jpg" width="499px" alt="SQL Installer"/>
 
  </li>
 <li> Perform a basic installation to ensure SQL Server is installed
@@ -37,7 +37,7 @@
 </li>
 
 <li>
-    After connecting to the local database simply drag the script into the editor box hit execute and refresh the connection to see the database (TechSolutions) should be under the list now.
+    After connecting to the local database simply drag the CreateDB.sql script (in the scripts folder) into the editor box hit execute and refresh the connection to see the database (TechSolutions) should be under the list now.
 
 ![SQL Dev Picture](ReadmeAssets/sql-7-create-database.jpg)
 
@@ -46,11 +46,11 @@
 <h2> IDE </h2>
 <li>
     Download the Visual Studio Community Installer from the second link above and run it
-<img src="./ReadmeAssets/vs-1-community.jpg" alt="VS Community" width="400px" />
+<img src="./ReadmeAssets/vs-1-community.jpg" alt="VS Community" width="350px" />
 </li>
 <li>
     Under Workloads select ASP.NET and web development and click install
-    <img src="./ReadmeAssets/vs-2-packages.jpg" alt="Workload"/>
+    <img src="./ReadmeAssets/vs-2-packages.jpg" alt="Workload" width="450px"/>
 </li>
 <li>
     After installation double click the TechSolutionsCRM solution file to open the project.
@@ -66,12 +66,33 @@ Once Entity Framework tools are installed, in the same console run the following
 <code>dotnet ef database update --context IdentityContext; dotnet ef database update --context TechSolutionsCRMContext</code><br>
 These 2 concatenated commands fire the entity core updates per context. 
 </li>
+<li>
+    Keep Visual Studio open till later.
+</li>
+<h2>Frontend</h2>
+<li>
+    Navigate to the NodeJS download link above and download the installer and install using default settings.
+    <img src="./ReadmeAssets/node-1-installer.jpg" alt="Node Installer" width="450px">
+</li>
+</ul>
+
+# Running the Project
+
+<ul>
+<li>
+    Open the TechSolutionsCRM solution in Visual Studio and run the project (F5), this will start the project and should open a swagger page with the customers controller as well as the Identity Controller (TechSolutionsCRM). <br>
+</li>
+<li>
+    Open a terminal in the FE (Frontend) folder and simply run <br>
+    <code>npm run start</code><br>
+    this will start up the frontend
+</li>
 </ul>
 
 ## Frameworks
 
--   .NET Core
--   Entity Framework
+-   Microsoft SQL
+-   .NET Core, Entity Framework & Identity
 -   Angular & Material
 
 ## Database
@@ -124,8 +145,3 @@ would be adding a repository tto allow abstraction on the Context layer to simpl
 not add these right away because it could increase complexity and reduce simplicity if not required.
 
 # Frontend
-
-## Test User Details
-
-email: demouser@test.com <br>
-password: DemoTest1@

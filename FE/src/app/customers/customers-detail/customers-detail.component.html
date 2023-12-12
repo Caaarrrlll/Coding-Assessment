@@ -73,7 +73,12 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button (click)="onNoClick()">Cancel</button>
-  <button mat-button (click)="dialogSuccessClose()" cdkFocusInitial>
+  <button
+    mat-button
+    [disabled]="customerForm.invalid"
+    (click)="dialogSuccessClose()"
+    cdkFocusInitial
+  >
     Accept
   </button>
 </mat-dialog-actions>

@@ -20,7 +20,12 @@ export class LoginComponent implements OnInit {
     ),
     password: new FormControl(
       '',
-      Validators.compose([Validators.required, Validators.minLength(6)])
+      Validators.compose([
+        Validators.required,
+        Validators.pattern(
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,14}$/
+        ),
+      ])
     ),
   });
 
